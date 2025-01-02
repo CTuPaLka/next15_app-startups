@@ -1,13 +1,21 @@
 import {Ping} from "@/components/Ping";
-import {client} from "@/sanity/lib/client";
+import { client } from "@/sanity/lib/client";
 import {STARTUP_VIEWS_QUERY} from "@/sanity/lib/queries";
+import {writeClient} from "@/sanity/lib/write-client";
+import { after } from 'next/server'
 
 export const View = async ({id}: {id: string}) => {
-    const { views } = await client
+    const { views: totalViews } = await client
         .withConfig({ useCdn: false }) // useCdn: false отключает использование Content Delivery Network (CDN). Это гарантирует, что данные будут запрашиваться напрямую с сервера Sanity и всегда будут актуальными, а не кэшированными.
         .fetch(STARTUP_VIEWS_QUERY, { id })
 
-    // TODO Update the number of views
+    after( async () => {
+        await writeClient
+            .patch(id)
+            .set({ views: totalViews + 1 })
+            .commit();
+    })
+
 
     return (
         <div className="view-container">
@@ -16,7 +24,7 @@ export const View = async ({id}: {id: string}) => {
             </div>
 
             <p className={`view-text`}>
-                <span className={`font-black`}>Views: {views}</span>
+                <span className={`font-black`}>Views: {totalViews}</span>
             </p>
         </div>
     )

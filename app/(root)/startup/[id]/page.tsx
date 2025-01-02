@@ -1,5 +1,4 @@
 import {STARTUP_QUERY_BY_ID} from "@/sanity/lib/queries";
-import {sanityFetch} from "@/sanity/lib/live";
 import {client} from "@/sanity/lib/client";
 import {notFound} from "next/navigation";
 import {formatDate} from "@/lib/utils";
