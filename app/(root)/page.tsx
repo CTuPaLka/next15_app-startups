@@ -35,7 +35,7 @@ const { data: posts } = await sanityFetch({ query: STARTUPS_QUERY, params });
                   )}
               </ul>
           </section>
-          <SanityLive />
+          {/*<SanityLive />*/}
       </>
   )
 }
