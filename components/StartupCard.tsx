@@ -47,7 +47,7 @@ export const StartupCard = ({ post }: IProps) => {
                     </Link>
                 </div>
                 <Link href={`/user/${author?._id}`}>
-                    <Image src={"https://placehold.co/48x48"} alt={"placeholder"} className={"rounded-full"} width={48}
+                    <Image src={author?.image!} alt={author?.name!} className={"rounded-full"} width={48}
                            height={48}/>
                 </Link>
             </div>

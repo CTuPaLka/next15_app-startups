@@ -15,14 +15,11 @@ export const experimental_ppr = true
 
 const StartupPage = async ({params}: {params: Promise<{ id: string }>}) => {
     const id = (await params).id;
-    // const data = sanityFetch({ query: STARTUP_QUERY_BY_ID, params: { id } })
     const post = await client.fetch(STARTUP_QUERY_BY_ID, { id })
 
     if (!post) return notFound();
 
     const parsedContent = md.render(post?.pitch || "");
-
-    console.log(post)
 
     return (
         <>
